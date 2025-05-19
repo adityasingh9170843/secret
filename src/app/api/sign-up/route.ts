@@ -49,7 +49,7 @@ export async function POST(request: Request) {
         })
         await newUser.save()
     }
-    // Send verification email
+    // Send verfication emaill
     const emailResponse = await sendVerificationEmail(email,username, verifyCode);
     if(!emailResponse.success) {
       return Response.json(
