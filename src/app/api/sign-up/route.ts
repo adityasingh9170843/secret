@@ -14,6 +14,13 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+    const Existingemail = await UserModel.findOne({email})
+    if(Existingemail){
+      return Response.json(
+        { success: "false", message: "Email already exists" },
+        { status: 400 }
+      );
+    }
     const existingUserVerifiedByEmail = await UserModel.findOne({email})
     const verifyCode = Math.floor(100000 + Math.random() * 900000).toString()
     if(existingUserVerifiedByEmail){
