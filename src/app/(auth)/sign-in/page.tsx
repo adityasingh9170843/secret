@@ -80,6 +80,7 @@ const Sign = () => {
               )}
             />
             <Button type="submit">Sign In</Button>
+            <p className="text-center">Don't have an account? <a className="text-blue-500" href="/sign-up">Sign Up</a></p>
           </form>
         </Form>
       </div>
