@@ -23,12 +23,19 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
-function MessageCard({ message, onMessageDelete }) {
+import { Message } from "@/model/User";
+
+type MessageCardProps = {
+  message:Message;
+  onMessageDelete: (messageId: string) => void;
+}
+
+function MessageCard({ message, onMessageDelete }: MessageCardProps) {
   const handleDeleteConfirm = async () => {
-    const response = await axios.delete(`api/delete-message/${message._id}`);
+  const response = await axios.delete(`api/delete-message/${message._id}`);
   };
   toast.success("Message deleted successfully");
-  onMessageDelete(message._id);
+  onMessageDelete(message._id as string);
   return (
     <Card>
       <CardHeader>
