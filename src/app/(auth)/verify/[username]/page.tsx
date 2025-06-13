@@ -32,14 +32,15 @@ function VerifyAccount() {
       code: "",
     },
   });
-
+  console.log("param", param);
   const onSubmit = async (data: z.infer<typeof verifySchema>) => {
     try {
       const response = await axios.post(`/api/verify-code/${param.username}`, {
         code: data.code,
+        username : param.username
       });
       toast.success(response.data.message);
-      router.push("sign-in");
+      router.push("/sign-in");
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       console.error("Verify error:", axiosError.response?.data || error);

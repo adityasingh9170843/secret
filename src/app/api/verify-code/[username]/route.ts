@@ -2,10 +2,12 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 
 
+
 export async function POST(request:Request){
     await dbConnect();
     try{
         const {username,code} = await request.json();
+        
         console.log("username",username,"code",code);
         const user = await UserModel.findOne({username})
         if(!user){
@@ -25,6 +27,7 @@ export async function POST(request:Request){
             return Response.json({
                 success : true,
                 message : "User verified successfully",
+                
             },
         {
                 status: 200,
