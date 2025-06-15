@@ -40,7 +40,8 @@ function Dashboard() {
   const fetchAcceptMessage = useCallback(async ()=>{
     try{
       setIsSwitchLoading(true);
-      const response =await axios.get('api/accept-messages');
+      const response =await axios.get('/api/accept-messages');
+      console.log("response",response);
       setValue("acceptMessages",response.data.isAcceptingMessages);
     }catch(error){
       console.log(error);
@@ -57,8 +58,9 @@ function Dashboard() {
     setIsLoading(true)
     setIsSwitchLoading(false)
     try{
-     const response = await axios.get('api/get-messages');
-     setMessages(response.data.messages);
+     const response = await axios.get('/api/get-messages');
+     console.log("response",response);
+     setMessages(response.data.message || []);
      if(refresh){
       toast.success("Messages refreshed");
      }
@@ -77,6 +79,7 @@ function Dashboard() {
     if(!session || !session.user){
       return;
     }
+    console.log("session",session);
     fetchAcceptMessage();
     fetchMessages();
   },[session,setValue,fetchAcceptMessage,fetchMessages])
@@ -86,7 +89,7 @@ function Dashboard() {
 
     const handleSwitchChange = async ()=>{
      try{
-       const response = await axios.post('api/accept-messages',{acceptMessages: !acceptMessages});
+       const response = await axios.post('/api/accept-messages',{acceptMessages: !acceptMessages});
        setValue("acceptMessages",!acceptMessages);
        toast.success(response.data.message);
      }catch(error){
@@ -162,7 +165,7 @@ function Dashboard() {
         {messages.length > 0 ? (
           messages.map((message, index) => (
             <MessageCard
-              key={index}
+              key={message._id as string}
               message={message}
               onMessageDelete={handleDeleteMessage}
             />

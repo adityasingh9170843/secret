@@ -23,59 +23,32 @@ export async function GET(request: Request) {
 
   const user = session.user;
 
+  console.log("Session user ID:", session.user._id);
+  console.log("Session user:", session.user);
   const userID = new mongoose.Types.ObjectId(user._id);
+
+  console.log("userID", userID);
   try {
-    const user = await UserModel.aggregate([
-      {
-        $match: {
-          id: userID,
-        },
-      },
-      {
-        $unwind: "$messages",
-      },
-      {
-        $sort: {
-          "messages.createdAt": -1,
-        },
-      },
-      {
-        $group: {
-          _id: "$_id",
-          messages: {
-            $push: "$messages",
-          },
-        },
-      },
-    ]);
-    if(!user || user.length === 0) {
+    const foundUser = await UserModel.findById(userID)
+      .select("message") // Only select messages
+      .sort({ "message.createdAt": -1 }); // Sort messages
+    console.log("foundUser", foundUser);
+    if (!foundUser) {
       return Response.json(
-        {
-          success: false,
-          message: "User not found.",
-        },
-        {
-          status: 401,
-        }
+        { message: "User not found", success: false },
+        { status: 404 }
       );
     }
+
     return Response.json(
-      {
-        success: true,
-        messages: user[0].messages,
-      },
-      {
-        status: 200,
-      }
+      { message: foundUser.message }, // Return sorted messages
+      { status: 200 }
     );
-  } catch (err) {
+  } catch (error) {
+    console.log(error);
     return Response.json(
-      {
-        success: false,
-        message: "error occured.",
-      },
-      {
-        status: 500,
-      }
-  )}
+      { message: "Error fetching messages", success: false },
+      { status: 500 }
+    );
+  }
 }

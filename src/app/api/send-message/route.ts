@@ -34,8 +34,10 @@ export async function POST(request: Request) {
         );
     }
     const newMessage = {content,createdAt: new Date()}
+    console.log("newMessage",newMessage);
     user.message.push(newMessage as Message);
     await user.save();
+    console.log("user-after-save",user);
     return Response.json(
         {
             success: true,

@@ -15,7 +15,7 @@ function Navbar() {
             <a href="#">Secret</a>
             {
                 session ? <>
-                <span className='mr-4'>Welcome, {user?.username || user?.email} </span> 
+                <span className='mr-4'>Welcome, {user?.username?.toUpperCase() || user?.email} </span> 
                 <Button className="w-fill md:w-auto" onClick={() => signOut()}>Logout</Button>
                 </> : <Link href='/sign-in'><Button className="w-fill md:w-auto">Login</Button></Link>
             }
