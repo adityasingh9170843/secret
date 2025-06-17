@@ -1,27 +1,44 @@
-"use client"
-import React from 'react'
-import Link from 'next/link'
-import { useSession,signOut } from 'next-auth/react'
-import { User } from 'next-auth'
-import { Button } from './ui/button'
+"use client";
+import React from "react";
+import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
+import { User } from "next-auth";
+import { Button } from "./ui/button";
+import { Separator } from "./ui/separator";
+
 function Navbar() {
+  const { data: session } = useSession();
+  const user: User = session?.user as User;
 
-    const {data:session} = useSession();
-
-    const user:User = session?.user as User;
   return (
-    <nav className='"p-4 md:p-6 shadow-md'>
-        <div className='container mx-auto flex flex-col md:flex-row items-center justify-between'>
-            <a href="#">Secret</a>
-            {
-                session ? <>
-                <span className='mr-4'>Welcome, {user?.username?.toUpperCase() || user?.email} </span> 
-                <Button className="w-fill md:w-auto" onClick={() => signOut()}>Logout</Button>
-                </> : <Link href='/sign-in'><Button className="w-fill md:w-auto">Login</Button></Link>
-            }
+    <nav className="bg-white shadow-sm sticky top-0 z-50 w-full border-b">
+      <div className="container mx-auto flex items-center justify-between px-4 py-3 md:py-4">
+        <Link href="/" className="text-xl font-bold tracking-tight text-gray-800 hover:text-black">
+          Secret
+        </Link>
+
+        <div className="flex items-center gap-4">
+          {session ? (
+            <>
+              <span className="hidden md:inline text-sm text-muted-foreground">
+                Welcome,&nbsp;
+                <strong className="text-gray-900">
+                  {user?.username?.toUpperCase() || user?.email}
+                </strong>
+              </span>
+              <Button variant="outline" onClick={() => signOut()}>
+                Logout
+              </Button>
+            </>
+          ) : (
+            <Link href="/sign-in">
+              <Button>Login</Button>
+            </Link>
+          )}
         </div>
+      </div>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
