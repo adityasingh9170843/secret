@@ -29,7 +29,7 @@ export async function POST(request: Request) {
                 message: "User is not accepting messages.",
             },
             {
-                status: 403,
+                status: 200,
             }
         );
     }

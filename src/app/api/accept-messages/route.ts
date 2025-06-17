@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/option";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
-import { User } from "next-auth";
+
 
 export async function POST(request: Request) {
   await dbConnect();
@@ -32,7 +32,9 @@ export async function POST(request: Request) {
         isAcceptingMessages: acceptMessages,
       },
       { new: true }
+      
     );
+    console.log("updatedUser", updatedUser)
     if (!updatedUser) {
       return Response.json(
         {

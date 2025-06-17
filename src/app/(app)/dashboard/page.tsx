@@ -36,7 +36,8 @@ function Dashboard() {
   const acceptMessages = watch("acceptMessages");
 
 
-  const {data:session } = useSession();
+  const session = useSession();
+  
   const fetchAcceptMessage = useCallback(async ()=>{
     try{
       setIsSwitchLoading(true);
@@ -59,7 +60,7 @@ function Dashboard() {
     setIsSwitchLoading(false)
     try{
      const response = await axios.get('/api/get-messages');
-     console.log("response",response);
+     
      setMessages(response.data.message || []);
      if(refresh){
       toast.success("Messages refreshed");
@@ -76,7 +77,7 @@ function Dashboard() {
 
 
   useEffect(()=>{
-    if(!session || !session.user){
+    if(!session.data || !session.data.user){
       return;
     }
     console.log("session",session);
@@ -90,6 +91,7 @@ function Dashboard() {
     const handleSwitchChange = async ()=>{
      try{
        const response = await axios.post('/api/accept-messages',{acceptMessages: !acceptMessages});
+       console.log("response-after-switch",response);
        setValue("acceptMessages",!acceptMessages);
        toast.success(response.data.message);
      }catch(error){
@@ -100,12 +102,12 @@ function Dashboard() {
 
 
 
-    if(!session || !session.user){
+    if(!session.data || !session.data.user){
       return <div>You are not logged in</div>
     }
 
 
-    const {username}= session.user 
+    const {username}= session.data.user; 
     //more research on this
     const baseUrl = `${window.location.protocol}//${window.location.host}`;
     const profileUrl = `${baseUrl}/u/${username}`

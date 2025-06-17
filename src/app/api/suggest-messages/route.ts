@@ -9,7 +9,10 @@ import { NextResponse } from 'next/server';
 // or
 // pnpm add @ai-sdk/google
 
-export async function POST(req: Request) {
+export async function GET(req: Request) {
+
+
+  
   try {
     // The Vercel AI SDK's Google provider automatically looks for
     // the GOOGLE_GENERATIVE_AI_API_KEY environment variable.
@@ -32,7 +35,7 @@ export async function POST(req: Request) {
       prompt,
       // You can add other parameters here if needed, e.g.,
       // maxTokens: 100,
-      // temperature: 0.7,
+      temperature: 1,
     });
 
     // The 'text' variable will contain the generated content from Gemini.

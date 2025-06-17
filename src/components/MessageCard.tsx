@@ -1,12 +1,12 @@
 "use client";
 import {
   Card,
+  CardAction,
   CardContent,
+  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardAction,
-  CardFooter,
 } from "@/components/ui/card";
 import {
   AlertDialog,
@@ -32,14 +32,10 @@ type MessageCardProps = {
 
 function MessageCard({ message, onMessageDelete }: MessageCardProps) {
   const handleDeleteConfirm = async () => {
-    try {
-      await axios.delete(`/api/delete-message/${message._id}`);
-      toast.success("Message deleted successfully");
-      onMessageDelete(message._id as string);
-    } catch (error) {
-      console.error("Error deleting message:", error);
-      toast.error("Failed to delete message");
-    }
+    const response = await axios.delete(`/api/delete-message/${message._id}`);
+    console.log("del-response", response);
+    toast.success("Message deleted successfully");
+    onMessageDelete(message._id as string);
   };
 
   return (
@@ -62,7 +58,8 @@ function MessageCard({ message, onMessageDelete }: MessageCardProps) {
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete this message.
+                  This action cannot be undone. This will permanently delete
+                  this message.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
