@@ -5,20 +5,16 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 
 
-interface Params {
-    params: {
-        [key: string]: string | string[];
-    };
-}
+
 
 
 export async function DELETE(
-  request: NextRequest,
-  { params }: Params 
+  
+  context: { params: { messageid: string | string[] } }
 ) {
   await dbConnect();
 
-  const messageID = params.messageid;
+  const messageID =context.params.messageid;
 
   const session = await getServerSession(authOptions);
 
