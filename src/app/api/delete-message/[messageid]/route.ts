@@ -6,11 +6,11 @@ import UserModel from "@/model/User";
 
 export async function DELETE(
   request: NextRequest,
-  context: { params: { messageid: string } } // This is okay if you import from next/server
+  { params }: { params: { [key: string]: string | string[] } } // This is okay if you import from next/server
 ) {
   await dbConnect();
 
-  const messageID = context.params.messageid;
+  const messageID = params.messageid;
 
   const session = await getServerSession(authOptions);
 
