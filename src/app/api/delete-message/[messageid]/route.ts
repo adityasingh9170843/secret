@@ -1,25 +1,26 @@
+import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/option";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
-import { NextRequest } from "next/server";
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { messageid: string } }
+  context: { params: { messageid: string } } // This is okay if you import from next/server
 ) {
   await dbConnect();
 
-  const messageID = params.messageid;
+  const messageID = context.params.messageid;
+
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
-    return Response.json(
+    return NextResponse.json(
       {
         success: false,
         message: "You must be logged in to access.",
       },
-      { status: 500 }
+      { status: 401 }
     );
   }
 
@@ -32,7 +33,7 @@ export async function DELETE(
     );
 
     if (updatedResult.modifiedCount === 0) {
-      return Response.json(
+      return NextResponse.json(
         {
           success: false,
           message: "Failed to delete message or message not found",
@@ -41,7 +42,7 @@ export async function DELETE(
       );
     }
 
-    return Response.json(
+    return NextResponse.json(
       {
         success: true,
         message: "Message deleted successfully",
@@ -50,7 +51,7 @@ export async function DELETE(
     );
   } catch (error) {
     console.error("Error deleting message:", error);
-    return Response.json(
+    return NextResponse.json(
       {
         success: false,
         message: "Failed to delete message",
