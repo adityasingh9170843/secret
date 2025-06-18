@@ -4,13 +4,21 @@ import { authOptions } from "../../auth/[...nextauth]/option";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 
+
+interface Params {
+    params: {
+        [key: string]: string | string[];
+    };
+}
+
+
 export async function DELETE(
   request: NextRequest,
-  context: { params: Record<string, string | string[]> } 
+  { params }: Params 
 ) {
   await dbConnect();
 
-  const messageID = context.params.messageid;
+  const messageID = params.messageid;
 
   const session = await getServerSession(authOptions);
 
