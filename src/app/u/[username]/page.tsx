@@ -14,7 +14,7 @@ import {
 
 function Page() {
   const [message, setMessage] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const param = useParams();
 
   const sendMessage = async () => {
@@ -53,46 +53,62 @@ function Page() {
   };
 
   return (
-    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-3xl">
-      <h1 className="text-3xl font-bold mb-6">Send an Anonymous Message</h1>
+    <div className="relative min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 py-12 px-4 sm:px-8 lg:px-16">
+      <div className="max-w-3xl mx-auto bg-white/70 backdrop-blur-md border border-gray-300 rounded-2xl shadow-2xl p-8 space-y-8">
+        <h1 className="text-4xl font-bold text-indigo-700 text-center">
+          Send an Anonymous Message
+        </h1>
 
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>Write Your Message</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col space-y-4">
-          <input
-            type="text"
-            placeholder="Type your message here..."
-            className="input input-bordered w-full p-2 border rounded"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <Button disabled={!message} onClick={sendMessage}>Send Message</Button>
-        </CardContent>
-      </Card>
-
-      <div className="mb-6">
-        <Button variant="outline" onClick={suggestMessage}>
-          Suggest Questions (Click to get suggestions)
-        </Button>
-      </div>
-
-      {suggestions.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-          {suggestions.map((suggestion, index) => (
-            <Card
-              key={index}
-              onClick={() => handleSuggestionClick(suggestion)}
-              className="transition-all duration-200 hover:shadow-lg hover:ring-2 hover:ring-blue-500 cursor-pointer"
+        <Card className="bg-white/90 border border-gray-200 shadow-md">
+          <CardHeader>
+            <CardTitle className="text-lg font-semibold text-gray-700">
+              Write Your Message
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col space-y-4">
+            <input
+              type="text"
+              placeholder="Type your message here..."
+              className="w-full p-3 rounded-md border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+            <Button
+              disabled={!message}
+              onClick={sendMessage}
+              className="bg-indigo-600 hover:bg-indigo-700 text-white"
             >
-              <CardContent className="p-4 text-gray-800">
-                {suggestion}
-              </CardContent>
-            </Card>
-          ))}
+              Send Message
+            </Button>
+          </CardContent>
+        </Card>
+
+        <div className="text-center">
+          <Button
+            variant="outline"
+            onClick={suggestMessage}
+            className="border-indigo-300 text-indigo-700 hover:border-indigo-500"
+          >
+            Suggest Questions (Click to get suggestions)
+          </Button>
         </div>
-      )}
+
+        {suggestions.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+            {suggestions.map((suggestion, index) => (
+              <Card
+                key={index}
+                onClick={() => handleSuggestionClick(suggestion)}
+                className="transition-all duration-200 hover:shadow-lg hover:ring-2 hover:ring-indigo-500 cursor-pointer bg-white/90"
+              >
+                <CardContent className="p-4 text-gray-800">
+                  {suggestion}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

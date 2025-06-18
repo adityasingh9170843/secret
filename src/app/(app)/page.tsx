@@ -18,22 +18,27 @@ export default function Home() {
   return (
     <>
       {/* Background gradient with glow */}
-      <main className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white flex flex-col items-center justify-center px-4 md:px-24 py-12 overflow-hidden">
+      <main className="relative min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 text-white flex flex-col items-center justify-center px-4 md:px-24 py-12 overflow-hidden">
 
         {/* Hero Section */}
-        <section className="text-center z-10 animate-fade-in-up mb-10">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight drop-shadow-md">
+        <section className="text-center z-10 animate-fade-in-up mb-12 max-w-2xl">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight drop-shadow-xl text-white">
             💬 Dive into Anonymous Feedback
           </h1>
-          <p className="mt-4 text-lg md:text-xl text-gray-300">
+          <p className="mt-5 text-lg md:text-xl text-gray-300">
             Where honesty meets privacy. Share and receive unfiltered truths.
           </p>
-          <div className="mt-6 space-x-4">
+          <div className="mt-6 space-x-4 flex justify-center">
             <Link href="/sign-up">
-              <Button className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-xl">Get Started</Button>
+              <Button className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-md px-6 py-2 text-lg rounded-xl">
+                Get Started
+              </Button>
             </Link>
             <Link href="/dashboard">
-              <Button variant="outline" className=" bg-indigo-800 border-gray-400 text-white hover:bg-white/10">
+              <Button
+                variant="outline"
+                className="bg-white/10 border border-white/30 text-white hover:bg-white/20 px-6 py-2 text-lg rounded-xl"
+              >
                 Go to Dashboard
               </Button>
             </Link>
@@ -46,12 +51,14 @@ export default function Home() {
             <CarouselContent>
               {messages.map((message, index) => (
                 <CarouselItem key={index} className="p-4">
-                  <Card className="bg-white/5 backdrop-blur-md border border-white/10 shadow-md transition-transform hover:scale-[1.02]">
+                  <Card className="bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg hover:shadow-xl transition-transform duration-200 hover:scale-[1.02] rounded-xl">
                     <CardHeader>
-                      <CardTitle className="text-white text-lg">{message.title}</CardTitle>
+                      <CardTitle className="text-white text-lg font-semibold">
+                        {message.title}
+                      </CardTitle>
                     </CardHeader>
                     <CardContent className="flex gap-4 text-white/90">
-                      <Mail className="mt-1" />
+                      <Mail className="mt-1 text-indigo-300" />
                       <div>
                         <p className="mb-1">{message.content}</p>
                         <p className="text-xs text-gray-400">{message.received}</p>
