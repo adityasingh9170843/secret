@@ -10,11 +10,13 @@ import UserModel from "@/model/User";
 
 export async function DELETE(
   
-  context: { params: { messageid: any } }
+  request: NextRequest,
+  
 ) {
   await dbConnect();
 
-  const messageID =context.params.messageid as string;
+  const pathSegments = request.nextUrl.pathname.split('/');
+  const messageID = pathSegments[pathSegments.length - 1];
 
   const session = await getServerSession(authOptions);
 
