@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { User } from "next-auth";
 import { Button } from "./ui/button";
-import { Separator } from "./ui/separator";
+
 
 function Navbar() {
   const { data: session } = useSession();

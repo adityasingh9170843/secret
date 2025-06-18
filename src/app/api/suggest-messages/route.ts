@@ -9,7 +9,7 @@ import { NextResponse } from 'next/server';
 // or
 // pnpm add @ai-sdk/google
 
-export async function GET(req: Request) {
+export async function GET() {
 
 
   

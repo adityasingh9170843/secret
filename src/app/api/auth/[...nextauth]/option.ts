@@ -4,9 +4,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
-import { promises } from "dns";
+
 
 export const authOptions: NextAuthOptions = {
+
+  
   providers: [
     CredentialsProvider({
       id: "credentials",
@@ -16,6 +18,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials: any): Promise<any> {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await dbConnect();
         try {
           const user = await UserModel.findOne({
@@ -40,6 +43,7 @@ export const authOptions: NextAuthOptions = {
             throw new Error("Invalid password");
           }
         } catch (err: any) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           console.error("Authorize error:", err);
           throw new Error(err.message || "Something went wrong");
         }

@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import { redirect, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInSchema } from "@/schemas/signInSchema";
 import { z } from "zod";
-import axios, { AxiosError } from "axios";
+import  { AxiosError } from "axios";
 import { toast } from "sonner";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input"; 
@@ -33,7 +33,7 @@ const Sign = () => {
       }
       if(result?.url) {
         toast.success("Signed in successfully");
-        router.push("/");
+        router.push("/dashboard");
       }
     }catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;

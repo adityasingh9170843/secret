@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpSchema } from "@/schemas/signUpSchema";
+
 import { z } from "zod";
 import { verifySchema } from "@/schemas/verifySchema";
 import axios from "axios";

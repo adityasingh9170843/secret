@@ -4,11 +4,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useDebounceValue, useDebounceCallback } from "usehooks-ts";
+import {  useDebounceCallback } from "usehooks-ts";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { signUpSchema } from "@/schemas/signUpSchema";
-import { set } from "mongoose";
+
 import axios from "axios";
 import { ApiResponse } from "@/types/ApiResponses";
 import { AxiosError } from "axios";
@@ -19,12 +19,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  FormDescription,
+  
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-function page() {
+function Page() {
   const [userName, setUserName] = useState("");
   const [userNameMessage, setUserNameMessage] = useState("");
   const [isCheckingUserName, setIsCheckingUserName] = useState(false);
@@ -171,4 +171,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
