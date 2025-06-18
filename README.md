@@ -45,5 +45,5 @@ A modern, privacy-first messaging platform built with **Next.js 14**, **ShadCN U
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/anonymous-feedback-app.git
+git clone https://github.com/adityasingh9170843/secret
 cd anonymous-feedback-app
