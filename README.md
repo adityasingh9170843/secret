@@ -36,7 +36,7 @@ A modern, privacy-first messaging platform built with **Next.js 14**, **ShadCN U
 | UI Library  | ShadCN, Lucide Icons                           |
 | Toasts      | Sonner                                         |
 | Carousel    | Embla Carousel                                 |
-| Hosting     | Vercel (Recommended)                           |
+| Hosting     | Render                           |
 
 ---
 
