@@ -36,6 +36,7 @@ const Sign = () => {
         email: data.email,
         password: data.password,
       });
+      console.log("resultsssss", result);
       if (result?.error) {
         toast.error(result.error);
       }

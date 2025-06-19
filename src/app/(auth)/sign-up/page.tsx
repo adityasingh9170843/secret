@@ -81,7 +81,7 @@ function Page() {
 
   return (
     <div className="relative flex justify-center items-center min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 overflow-hidden">
-      {/* Decorative Background SVGs */}
+      
       <svg
         className="absolute top-[-40px] left-[-40px] w-64 h-64 text-indigo-200 opacity-30"
         fill="currentColor"
