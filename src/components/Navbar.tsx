@@ -26,7 +26,7 @@ function Navbar() {
                   {user?.username?.toUpperCase() || user?.email}
                 </strong>
               </span>
-              <Button variant="outline" onClick={() => signOut()}>
+              <Button variant="outline" onClick={() => signOut({callbackUrl: "/" })}>
                 Logout
               </Button>
             </>
